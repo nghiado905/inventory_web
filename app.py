@@ -1,44 +1,35 @@
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 import pandas as pd
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
-import io
+import os
 from calculate import *
 
 app = Flask(__name__)
 
-# Authenticate and create the PyDrive client
-gauth = GoogleAuth()
-gauth.LocalWebserverAuth()  # Creates local webserver and auto handles authentication.
-drive = GoogleDrive(gauth)
-
 # Define the data directories
 data_directories = {
-    'thu_chi': 'thu_chi',
-    'hoa_binh': 'hoa_binh',
-    'deo': 'deo'
+    'thu_chi': 'data/thu_chi',
+    'hoa_binh': 'data/hoa_binh',
+    'deo': 'data/deo'
 }
 
 # Define file paths
 def get_file_path(data_type):
     today = datetime.today().strftime('%d-%m-%Y')
-    return f"{data_type.capitalize()}_{today}.xlsx"
+    return os.path.join(data_directories[data_type], f"{data_type.capitalize()}_{today}.xlsx")
+
 
 # Initialize DataFrames
 def initialize_dataframe(file_path, columns):
-    file_list = drive.ListFile({'q': f"title='{file_path}' and trashed=false"}).GetList()
-    if file_list:
-        file_id = file_list[0]['id']
-        file = drive.CreateFile({'id': file_id})
-        file_content = file.GetContentString()
-        return pd.read_excel(io.StringIO(file_content))
+    if os.path.exists(file_path):
+        return pd.read_excel(file_path)
     else:
         return pd.DataFrame(columns=columns)
 
 df_thu_chi = initialize_dataframe(get_file_path('thu_chi'), ['Thu', 'Chi', 'Lí do'])
 df_hoa_binh = initialize_dataframe(get_file_path('hoa_binh'), ['Tên', 'Số lượng'])
 df_deo = initialize_dataframe(get_file_path('deo'), ['Tên', 'Số lượng'])
+
 
 @app.route('/')
 def welcome():
@@ -66,44 +57,20 @@ def submit():
 
         new_data = {'Thu': thu, 'Chi': chi, 'Lí do': reason}
         df_thu_chi = pd.concat([df_thu_chi, pd.DataFrame([new_data])], ignore_index=True)
-        file_path = get_file_path('thu_chi')
-        
-        buffer = io.BytesIO()
-        df_thu_chi.to_excel(buffer, index=False)
-        buffer.seek(0)
-        
-        file_list = drive.ListFile({'q': f"title='{file_path}' and trashed=false"}).GetList()
-        if file_list:
-            file_id = file_list[0]['id']
-            file = drive.CreateFile({'id': file_id})
-            file.Upload(content=buffer.read())
-        else:
-            file = drive.CreateFile({'title': file_path})
-            file.Upload(content=buffer.read())
+        df_thu_chi.to_excel(get_file_path('thu_chi'), index=False)
 
     elif data_type in ['hoa_binh', 'deo']:
         name = request.form.get('name')
         quantity = request.form.get('quantity')
+
 
         new_data = {'Tên': name, 'Số lượng': int(quantity)}
         df = df_hoa_binh if data_type == 'hoa_binh' else df_deo
         file_path = get_file_path(data_type)
         
         df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
-        
-        buffer = io.BytesIO()
-        df.to_excel(buffer, index=False)
-        buffer.seek(0)
-        
-        file_list = drive.ListFile({'q': f"title='{file_path}' and trashed=false"}).GetList()
-        if file_list:
-            file_id = file_list[0]['id']
-            file = drive.CreateFile({'id': file_id})
-            file.Upload(content=buffer.read())
-        else:
-            file = drive.CreateFile({'title': file_path})
-            file.Upload(content=buffer.read())
-        
+        df.to_excel(file_path, index=False)
+
         if data_type == 'hoa_binh':
             df_hoa_binh = df
         else:
@@ -112,7 +79,7 @@ def submit():
     else:
         return "Invalid data type", 400
 
-    return redirect(url_for('index', data_type=data_type))
+    return redirect(url_for('index',data_type=data_type))
 
 @app.route('/result', methods=['GET'])
 def results_page():
