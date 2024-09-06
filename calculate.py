@@ -26,4 +26,5 @@ def sum_today(entries):
     today = datetime.today().strftime('%Y-%m-%d')
     total_thu = sum(entry.thu for entry in entries if entry.date.strftime('%Y-%m-%d') == today and entry.thu is not None)
     total_chi = sum(entry.chi for entry in entries if entry.date.strftime('%Y-%m-%d') == today and entry.chi is not None)
-    return total_thu - total_chi
+    total = total_thu - total_chi
+    return str(total) + " VNĐ"
