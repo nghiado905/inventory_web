@@ -50,6 +50,8 @@
             background: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center text horizontally */
+            white-space: pre-wrap; /* Preserve newlines and spaces */
         }
 
         .buttons {
@@ -72,6 +74,7 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-decoration: none;
+            display: inline-block;
         }
 
         .button:hover {
@@ -117,7 +120,6 @@
 </head>
 <body>
     <div class="container">
-
         {% if data_type == 'hoa_binh' %}
             <h1>Thông tin cơ bản của Nhà Hòa Bình</h1>
             <div class="buttons">
@@ -155,7 +157,7 @@
         
         <div class="buttons">
             <a href="{{ url_for('welcome') }}" class="button">Quay về Trang Đầu</a>
-            <a href="{{ url_for('index', data_type=data_type) }}" class="button">Nhập dữ liệu </a>
+            <a href="{{ url_for('index', data_type=data_type) }}" class="button">Nhập dữ liệu</a>
             <a href="{{ url_for('end') }}" class="button">Ấn Để Nghỉ Việc</a>
         </div>
     </div>

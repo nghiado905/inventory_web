@@ -1,29 +1,29 @@
 import pandas as pd
-
-def sum_of_type(df):
-    df['Tổng Giá trị'] = df['Giá bán'] * df['Số lượng']
-    result = df.groupby('Mã hàng')['Tổng Giá trị'].sum().reset_index()
-    # result = df.groupby('Mã hàng')['Giá bán'].sum().reset_index()
-
-    return result.to_dict(orient='records')  # Chuyển đổi thành danh sách các từ điển
-
-def sum_of_name(df):
-    df['Tổng Giá trị'] = df['Giá bán'] * df['Số lượng']
-    result = df.groupby('Tên hàng')['Tổng Giá trị'].sum().reset_index()
-    return result.to_dict(orient='records')  # Chuyển đổi thành danh sách các từ điển
+from datetime import datetime
 
 
+def sum_of_name(entries):
+    name_counts = {}
+    for entry in entries:
+        if entry.date.strftime('%Y-%m-%d') == datetime.today().strftime('%Y-%m-%d'):
+            if entry.name not in name_counts:
+                name_counts[entry.name] = 0
+            name_counts[entry.name] += entry.quantity
+    return format_name_counts(name_counts)
 
-def sum_of_name(df):
-    return len(df)
+def format_name_counts(name_counts):
+    formatted_str = ""
+    for name, quantity in name_counts.items():
+        formatted_str += f"{name}: {quantity}\n"
+    return formatted_str
 
+def count_product(entries):
+    today = datetime.today().strftime('%Y-%m-%d')
+    total_quantity = sum(entry.quantity for entry in entries if entry.date.strftime('%Y-%m-%d') == today)
+    return total_quantity
 
-def count_product(df):
-    df['Số lượng'] = pd.to_numeric(df['Số lượng'])
-    return df['Số lượng'].sum()
-
-def sum_today(df):
-    df['Tổng thu'] =  pd.to_numeric(df['Thu']).sum()
-    df['Tổng chi'] = pd.to_numeric(df['Chi']).sum()
-    sum_of_today = df['Tổng thu'] - df['Tổng chi']
-    return sum_of_today[0] # Chuyển đổi thành danh sách các từ điển
+def sum_today(entries):
+    today = datetime.today().strftime('%Y-%m-%d')
+    total_thu = sum(entry.thu for entry in entries if entry.date.strftime('%Y-%m-%d') == today and entry.thu is not None)
+    total_chi = sum(entry.chi for entry in entries if entry.date.strftime('%Y-%m-%d') == today and entry.chi is not None)
+    return total_thu - total_chi
