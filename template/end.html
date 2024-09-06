@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chọn Loại Dữ Liệu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Gửi Vợ Yêu</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            text-align: center;
+            overflow: hidden;
             background: linear-gradient(-45deg, #ff6f61, #ffb6c1, #ff9a9e, #fcbfcb);
             background-size: 400% 400%;
             animation: gradientAnimation 15s ease infinite;
-            text-align: center;
-            overflow: hidden;
         }
 
         .container {
@@ -26,12 +25,10 @@
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            max-width: 700px;
-            width: 90%;
+            max-width: 600px;
+            width: 100%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             animation: fadeIn 2s ease-in;
-            position: relative;
-            overflow: hidden;
         }
 
         .container:hover {
@@ -47,13 +44,13 @@
         }
 
         p {
-            color: #ff6f61;
+            color: #ff9a9e;
             font-size: 1.2em;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             animation: fadeIn 3s ease-in, textShadow 3s infinite alternate;
         }
 
-        .button-group a {
+        a {
             text-decoration: none;
             color: #fff;
             background: linear-gradient(45deg, #ff6f61, #ffb6c1);
@@ -63,17 +60,16 @@
             font-weight: bold;
             transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             display: inline-block;
-            margin: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .button-group a:hover {
+        a:hover {
             background: linear-gradient(45deg, #ffb6c1, #ff6f61);
             transform: scale(1.1);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
-        .button-group a:active {
+        a:active {
             background: linear-gradient(45deg, #ff6f61, #ffb6c1);
             transform: scale(1);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -99,10 +95,10 @@
 
         @keyframes textShadow {
             0% {
-                text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
             }
             100% {
-                text-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
             }
         }
 
@@ -121,14 +117,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Vợ Chọn Sổ Điii</h1>
-        <p>Ấn đúng Ô nha</p>
-        <div class="button-group">
-            <a href="{{ url_for('welcome') }}">Trang Đầu Chúc Vợ</a>
-            <a href="{{ url_for('index', data_type='thu_chi') }}">Nhập Thu/Chi</a>
-            <a href="{{ url_for('index', data_type='hoa_binh') }}">Nhập Dữ Liệu Nhà Hòa Bình</a>
-            <a href="{{ url_for('index', data_type='deo') }}">Nhập Dữ Liệu Nhà Dẻo</a>
-        </div>
+        <h1>Khò Khò zzz</h1>
+        <p>Em làm việc vất vả rùiiiiiii về thuiiii vợ 💖</p>
+        <a href="{{ url_for('start') }}">Quay lại Trang chủ</a>
     </div>
 </body>
 </html>

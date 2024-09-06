@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Kết Quả</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(-45deg, #ff6f61, #ffb6c1, #ff9a9e, #fcbfcb);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 90%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 2s ease-in;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #ff6f61;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            animation: fadeIn 2s ease-in, colorChange 3s infinite alternate;
+        }
+
+        .result {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background: linear-gradient(45deg, #ff6f61, #ffb6c1);
+            color: #ffffff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background: linear-gradient(45deg, #ffb6c1, #ff6f61);
+            transform: scale(1.02);
+        }
+
+        .button:active {
+            background: linear-gradient(45deg, #ff6f61, #ffb6c1);
+            transform: scale(1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #ff6f61;
+            }
+            100% {
+                color: #ff9a9e;
+            }
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        {% if data_type == 'hoa_binh' %}
+            <h1>Thông tin cơ bản của Nhà Hòa Bình</h1>
+            <div class="buttons">
+                <form action="{{ url_for('result_name_hoa_binh') }}" method="POST">
+                    <button type="submit" class="button">Số sản phẩm theo tên</button>
+                </form>
+                <form action="{{ url_for('result_count_hoa_binh') }}" method="POST">
+                    <button type="submit" class="button">Tổng số lượng các mặt hàng đã nhập</button>
+                </form>
+            </div>
+        {% elif data_type == 'deo' %}
+            <h1>Thông tin cơ bản của Nhà Dẻo</h1>
+            <div class="buttons">
+                <form action="{{ url_for('result_name_deo') }}" method="POST">
+                    <button type="submit" class="button">Số sản phẩm theo tên</button>
+                </form>
+                <form action="{{ url_for('result_count_deo') }}" method="POST">
+                    <button type="submit" class="button">Tổng số lượng các mặt hàng đã nhập</button>
+                </form>
+            </div>
+        {% elif data_type == 'thu_chi' %}
+            <h1>Thông tin cơ bản của Nhà Thu Chi</h1>
+            <div class="buttons">
+                <form action="{{ url_for('result_today') }}" method="POST">
+                    <button type="submit" class="button">Lợi nhuận</button>
+                </form>
+            </div>
+        {% endif %}
+        
+        {% if result %}
+            <div class="result">
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+        
+        <div class="buttons">
+            <a href="{{ url_for('welcome') }}" class="button">Quay về Trang Đầu</a>
+            <a href="{{ url_for('index', data_type=data_type) }}" class="button">Nhập dữ liệu </a>
+            <a href="{{ url_for('end') }}" class="button">Ấn Để Nghỉ Việc</a>
+        </div>
+    </div>
+</body>
+</html>
