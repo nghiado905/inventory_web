@@ -7,7 +7,7 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1@localhost/my_inventory'
 #postgresql://my_inventory_4bmn_user:xOCRLogHyNzewWM28rtCILNEFT4UgMcc@dpg-crdg4nl2ng1s73fui940-a.oregon-postgres.render.com/my_inventory_4bmn
 # URL kết nối PostgreSQL từ Render
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://my_inventory_4bmn_user:xOCRLogHyNzewWM28rtCILNEFT4UgMcc@dpg-crdg4nl2ng1s73fui940-a.oregon-postgres.render.com/my_inventory_4bmn"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://inventory_data_1gbj_user:qZM77mPycreFqQBFBzOPfWwtnoUcH42B@dpg-crdgu556l47c73aukkqg-a/inventory_data_1gbj"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Tắt cảnh báo theo dõi sửa đổi
 
 
