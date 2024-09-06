@@ -159,7 +159,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="https://inventory-web-gilt.vercel.app/submit" method="POST">
+        <form action="{{ url_for('submit') }}" method="POST">
             <input type="hidden" name="data_type" value="{{ data_type }}">
             
             {% if data_type == 'thu_chi' %}
