@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, text
 from datetime import datetime
 import os
 
-DATABASE_URL = "postgresql+psycopg2://postgres:1@localhost:5432/my_inventory"
+DATABASE_URL = "postgresql+psycopg2://my_inventory_4bmn_user:xOCRLogHyNzewWM28rtCILNEFT4UgMcc@dpg-crdg4nl2ng1s73fui940-a.oregon-postgres.render.com/my_inventory_4bmn"
 engine = create_engine(DATABASE_URL)
 
 def export_thu_chi():
