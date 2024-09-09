@@ -3,11 +3,10 @@ from sqlalchemy import create_engine, text
 from datetime import datetime
 import os
 
-DATABASE_URL = "postgresql+psycopg2://inventory_data_1gbj_user:qZM77mPycreFqQBFBzOPfWwtnoUcH42B@dpg-crdgu556l47c73aukkqg-a.oregon-postgres.render.com/inventory_data_1gbj"
+DATABASE_URL = "postgresql+psycopg2://inventory_data_1gbj_user:qZM77mPycreFqQBFBzOPfWwtnoUcH42B@dpg-crdgu556l47c73aukkqg-a/inventory_data_1gbj"
 # engine = create_engine(DATABASE_URL)
 # DATABASE_URL = "postgresql+psycopg2://postgres:1@localhost/my_inventory"
 engine = create_engine(DATABASE_URL)
-
 
 def export_thu_chi():
     today_date = datetime.now().strftime("%Y-%m-%d")
