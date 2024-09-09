@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, text
 from datetime import datetime
 import os
 
-DATABASE_URL = "postgresql+psycopg2://inventory_data_1gbj_user:qZM77mPycreFqQBFBzOPfWwtnoUcH42B@dpg-crdgu556l47c73aukkqg-a/inventory_data_1gbj"
+DATABASE_URL = "postgresql+psycopg2://inventory_data_4oji_user:TO9HnXjkRbckWr54AByc2bbSs1pnMi9X@dpg-crfaivlsvqrc73f61ll0-a.oregon-postgres.render.com:5432/inventory_data_4oji"
 # engine = create_engine(DATABASE_URL)
 # DATABASE_URL = "postgresql+psycopg2://postgres:1@localhost/my_inventory"
 engine = create_engine(DATABASE_URL)

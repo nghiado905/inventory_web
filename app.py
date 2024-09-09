@@ -6,7 +6,7 @@ from datetime import date
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1@localhost/my_inventory'
 # URL kết nối PostgreSQL từ Render
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://inventory_data_1gbj_user:qZM77mPycreFqQBFBzOPfWwtnoUcH42B@dpg-crdgu556l47c73aukkqg-a/inventory_data_1gbj"
+app.config['SQLALCHEMY_DATABASE_URI'] = postgresql://inventory_data_4oji_user:TO9HnXjkRbckWr54AByc2bbSs1pnMi9X@dpg-crfaivlsvqrc73f61ll0-a.oregon-postgres.render.com:5432/inventory_data_4oji"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Tắt cảnh báo theo dõi sửa đổi
 
 
